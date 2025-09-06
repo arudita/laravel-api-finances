@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('expense_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('amount', 19, 4)->default(0);
+            $table->integer('status')->default(0);
+            $table->foreignId('expense_id')->constrained()->onDelete('cascade');
+            $table->tinyInteger('archived')->default(0);
+            $table->date('payment_date');
             $table->timestamps();
         });
     }
