@@ -15,6 +15,7 @@ class ExpenseTransactionResource extends JsonResource
             'description' => $this->description,
             'amount' => $this->amount,
             'payment_date' => $this->payment_date,
+            'expense_id' => $this->expense_id,
             'status' => $this->status,
             'archived' => $this->archived,
         ];

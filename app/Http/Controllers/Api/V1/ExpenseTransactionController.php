@@ -7,7 +7,6 @@ use App\Models\ExpenseTransaction;
 use App\Http\Requests\StoreExpenseTransactionRequest;
 use App\Http\Requests\UpdateExpenseTransactionRequest;
 use App\Http\Resources\ExpenseTransactionResource;
-use App\Models\Expense;
 use Illuminate\Support\Facades\Gate;
 
 class ExpenseTransactionController extends Controller

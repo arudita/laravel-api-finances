@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\IncomeTransaction;
 use App\Http\Requests\StoreIncomeTransactionRequest;
 use App\Http\Requests\UpdateIncomeTransactionRequest;
+use App\Http\Resources\IncomeTransactionResource;
 use Illuminate\Support\Facades\Gate;
 
 class IncomeTransactionController extends Controller
@@ -13,14 +14,18 @@ class IncomeTransactionController extends Controller
     public function index()
     {
         Gate::authorize('viewAny', IncomeTransaction::class);
-        return request()->user()->incomes()->incomeTransactions()->get()->toResourceCollection();
+        $incomeIds = request()->user()->incomes()->pluck('id');
+
+        $transactions = IncomeTransaction::whereIn('income_id', $incomeIds)->get();
+        return $transactions->toResourceCollection();
     }
 
     public function store(StoreIncomeTransactionRequest $request)
     {
         Gate::authorize('create', IncomeTransaction::class);
-        $incomeTransaction = request()->user()->incomes()->expenseTransactions()->create($request->validated());
-        return $incomeTransaction->toResource();
+
+        $incomeTransaction = IncomeTransaction::create($request->validated());
+        return new IncomeTransactionResource($incomeTransaction);
     }
 
     public function show(IncomeTransaction $incomeTransaction)

@@ -15,6 +15,7 @@ class IncomeTransactionResource extends JsonResource
             'description' => $this->description,
             'amount' => $this->amount,
             'payment_date' => $this->payment_date,
+            'income_id' => $this->income_id,
             'status' => $this->status,
             'archived' => $this->archived,
         ];
